@@ -29,3 +29,23 @@ jobs:
       with:
         service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
         api-key: ${{ secrets.MY_RENDER_API_KEY }}
+  build_and_UI_Test:
+    needs: deploy_on_render
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.X
+        cache: 'npm'
+    - name: Sleep for 5 minutes
+      run: sleep 180s
+    - name: Npm Install 
+      run: npm install
+    - name: Install playwright
+      run: npx playwright install
+    - name: Npm Run App
+      run: npm run start &
+    - name: Run UI test
+      run: npm run test:ui
