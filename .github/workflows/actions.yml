@@ -19,4 +19,4 @@ jobs:
     - name: Install Dep.
       run: npm install
     - name: Run unit test
-    - run: npm run test:unit
+      run: npm run test:unit
